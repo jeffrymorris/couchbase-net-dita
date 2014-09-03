@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_cn2_5ck_r4">
+ <title>Release notes</title>
+ <shortdesc>Release notes for the 2.0 version of the Node.js SDK.</shortdesc>
+	
+	<concept id="dp1">
+		<title>Version 2.0 Beta 1</title>
+		<shortdesc>Version 2.0 Beta 1 is the first beta release of the Node.js SDK version 2.0. This
+			release includes new documentation, new API reference, and a tested interface that
+			represents all committed features. Various uncommitted and experimental features might
+			change prior to the  final release of version 2.0.0.</shortdesc>
+		
+		<concept id="dp1-enhance">
+			<title>Enhancements and behavioral changes</title>
+			<conbody>
+				<ul>
+					<li>A new API has been developed for this new release. This includes a more developer-friendly
+						CRUD operation interface, improvements regarding view and N1QL queries, and an
+						enhanced cluster and bucket management interface. See the documentation and API
+						Reference for further details.</li>
+					<li>The view querying interface has been rewritten to permit streaming of rows
+						as they are available rather than waiting for the whole result set before
+						dispatching.</li>
+					<li>Many of the bulk operation methods have been removed (except for getMulti). These
+						operations were previously available primarily for performance reasons, however
+						this performance benefit has now been integrated into all operations.</li>
+					<li>The API Reference has been revamped to provide many more details regarding
+						all events, classes and their methods.</li>
+					<li>Numerous performance enhancements have been made within the underlying library,
+						libcouchbase, which powers the Node.js SDK. </li>
+				</ul>
+			</conbody>
+		</concept>
+		
+		<concept id="dp1-known">
+			<title>Known issues</title>
+			<conbody>
+				<ul>
+					<li>Due to changes in the handling of document metadata, it is imperative that in mixed-version
+						environments, all Node.js clients must be upgraded to a minimum of version 1.2.4
+						prior to deploying any 2.0.0 clients.</li><li>The built-in Mock testing interface has been updated to match the new API changes, however, the
+						view mocking engine has not yet been ported. This means attempts to execute view
+						queries against Mock will currently fail with a "not supported" exception. This
+						will be ported prior to the GA release of 2.0.0.</li>
+					<li>The querying interface for N1QL is currently not capable of streaming rows individually and
+						instead only emits a single callback after all results have been aggregated. This
+						is scheduled to be corrected shortly after the release of DP4 of the N1QL Query
+						Engine.</li>
+					<li>Specifying an incorrect number of servers for replica read or durability
+						requirements will cause the operation to time out rather than emitting an error as
+						intended. This is expected to be fixed following the libcouchbase 2.4.1
+						release.</li></ul>
+			</conbody>
+		</concept>
+		
+	</concept>
+	
+
+</concept>
