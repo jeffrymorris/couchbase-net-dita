@@ -1,83 +1,148 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="concept_sjh_fhq_44">
- <title>Compatibility</title>
- <shortdesc>Compatibility between Couchbase Server and Couchnode releases.</shortdesc>
+  <title>Compatibility matrix</title>
+ <shortdesc>Compatibility between Couchbase Server and Couchbase .NET SDK releases.</shortdesc>
  <conbody>
- 	<p>To take advantage of all features offered by Couchbase Server, you need to know what version of
-			Couchnode provides compatibility for the features you want to use. The following matrix
-			shows which versions of Couchnode support the major features of each version of Couchbase
-			Server.</p>
-  <table frame="all" rowsep="1" colsep="1" id="table_qpl_ttq_44">
-   <title>The Matrix</title>
-   <tgroup cols="5">
-    <colspec colname="c1" colnum="1" colwidth="4.39*"/>
-    <colspec colname="c2" colnum="2" colwidth="4.29*"/>
-    <colspec colname="c3" colnum="3" colwidth="4.4*"/>
-    <colspec colname="c4" colnum="4" colwidth="4.35*"/>
-    <colspec colname="c5" colnum="5" colwidth="4.35*"/>
-    <thead>
-     <row>
-      <entry/>
-      <entry>Server 1.8</entry>
-      <entry>Server 2.0</entry>
-      <entry>Server 2.5</entry>
-      <entry>Server 3.0</entry>
-     </row>
-    </thead>
-    <tbody>
-      <row>
-        <entry>CRUD Operations</entry>
-        <entry namest="c2" nameend="c5">Since 1.0</entry>
-      </row>
-      <row>
-        <entry>View Querying APIs</entry>
-        <entry namest="c2" nameend="c5">Since 1.0</entry>
-      </row>
-
-      <row><entry namest="c1" nameend="c5"></entry></row>
-
-      <row>
-        <entry>Durability Requirements</entry>
-        <entry namest="c2" nameend="c5">Since 1.0</entry>
-      </row>
-      <row>
-        <entry>Fast (CCCP) Bootstrapping</entry>
-        <entry namest="c2" nameend="c3">Not Supported</entry>
-        <entry namest="c4" nameend="c5">Since 1.2</entry>
-      </row>
-      <row>
-        <entry>SSL Connectivity</entry>
-        <entry namest="c2" nameend="c4">Not Supported</entry>
-        <entry>Since 2.0</entry>
-      </row>
-      <row>
-        <entry>Transparent Compression</entry>
-        <entry namest="c2" nameend="c4">Not Supported</entry>
-        <entry>Since 2.0</entry>
-      </row>
-      <row>
-        <entry>Bulk Operations</entry>
-        <entry namest="c2" nameend="c5">Since 1.0</entry>
-      </row>
-      <row>
-       <entry>Cross-SDK Data types</entry>
-       <entry>Not Supported</entry>
-       <entry namest="c3" nameend="c5">Since 2.0</entry>
-      </row>
-      <row>
-       <entry>N1QL Querying</entry>
-       <entry namest="c2" nameend="c5">Since 1.2</entry>
-      </row>
-
-      <row><entry namest="c1" nameend="c5"></entry></row>
-
-      <row>
-        <entry>Administrative API</entry>
-        <entry namest="c2" nameend="c5">Since 1.0</entry>
-      </row>
-    </tbody>
-   </tgroup>
-  </table>
+   <p>The Couchbase .NET SDK and supported Couchbase Server versions:</p>
+    <p>
+      <table frame="all" rowsep="1" colsep="1" id="table_fyq_qsp_hp">
+        <title>Couchbase Server and SDK Supported Version Matrix</title>
+        <tgroup cols="3">
+          <colspec colname="c1" colnum="1" colwidth="1.0*"/>
+          <colspec colname="c2" colnum="2" colwidth="1.0*"/>
+          <colspec colname="c3" colnum="3" colwidth="1.0*"/>
+          <thead>
+            <row>
+              <entry/>
+              <entry>Couchbase .NET SDK 1.X</entry>
+              <entry>Couchbase .NET SDK 2.X</entry>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <entry>Couchbase 1.8</entry>
+              <entry align="center">X</entry>
+              <entry align="center">-</entry>
+            </row>
+            <row>
+              <entry >Couchbase 2.0</entry>
+              <entry align="center">X</entry>
+              <entry align="center">-</entry>
+            </row>
+            <row>
+              <entry>Couchbase 2.2</entry>
+              <entry align="center">X</entry>
+              <entry align="center">-</entry>
+            </row>
+            <row>
+              <entry>Couchbase 2.5</entry>
+              <entry align="center">X</entry>
+              <entry align="center">X</entry>
+            </row>
+            <row>
+              <entry>Couchbase 3.0</entry>
+              <entry align="center">X</entry>
+              <entry align="center">X</entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
+    </p>
+    <p>The following features are supported for each version of the SDK and Couchbase Server:</p>
+    <p>
+      <table frame="all" rowsep="1" colsep="1" id="table_r3n_mwp_hp">
+        <title>Couchbase Server and SDK Supported Feature Matrix</title>
+        <tgroup cols="5">
+          <colspec colname="c1" colnum="1" colwidth="2.03*"/>
+          <colspec colname="c2" colnum="2" colwidth="1*"/>
+          <colspec colname="c3" colnum="3" colwidth="1.07*"/>
+          <colspec colname="newCol4" colnum="4" colwidth="1*"/>
+          <colspec colname="newCol5" colnum="5" colwidth="1.08*"/>
+          <thead>
+            <row>
+              <entry/>
+              <entry align="center">Server 1.8</entry>
+              <entry align="center">Server 2.0</entry>
+              <entry align="center">Server 2.5</entry>
+              <entry align="center">Server 3.0</entry>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <entry>K/V Operations</entry>
+              <entry align="center">1.0</entry>
+              <entry align="center">1.0</entry>
+              <entry align="center">1.0/2.0</entry>
+              <entry align="center">1.0/2.0</entry>
+            </row>
+            <row>
+              <entry>View API</entry>
+              <entry align="center">-</entry>
+              <entry align="center">1.0</entry>
+              <entry align="center">1.0/2.0</entry>
+              <entry align="center">1.0/2.0</entry>
+            </row>
+            <row>
+              <entry>N1QL API</entry>
+              <entry align="center">-</entry>
+              <entry align="center">-</entry>
+              <entry align="center">-</entry>
+              <entry align="center">2.0</entry>
+            </row>
+            <row>
+              <entry>Document API</entry>
+              <entry align="center">-</entry>
+              <entry align="center">-</entry>
+              <entry align="center">2.0</entry>
+              <entry align="center">2.0</entry>
+            </row>
+            <row>
+              <entry>Durability Requirements</entry>
+              <entry align="center">-</entry>
+              <entry align="center">1.0</entry>
+              <entry align="center">1.0/2.0</entry>
+              <entry align="center">1.0/2.0</entry>
+            </row>
+            <row>
+              <entry>SSL</entry>
+              <entry align="center">-</entry>
+              <entry align="center">-</entry>
+              <entry align="center">-</entry>
+              <entry align="center">2.0</entry>
+            </row>
+            <row>
+              <entry>CRAM MD5 Auth</entry>
+              <entry align="center">-</entry>
+              <entry align="center">-</entry>
+              <entry align="center">-</entry>
+              <entry align="center">2.0</entry>
+            </row>
+            <row>
+              <entry>Bulk Operations</entry>
+              <entry align="center">1.0</entry>
+              <entry align="center">1.0</entry>
+              <entry align="center">1.0/2.0</entry>
+              <entry align="center">1.0/2.0</entry>
+            </row>
+            <row>
+              <entry>Admin API</entry>
+              <entry align="center">-</entry>
+              <entry align="center">1.0</entry>
+              <entry align="center">1.0/2.0</entry>
+              <entry align="center">1.0/2.0</entry>
+            </row>
+            <row>
+              <entry>CCCP (fast bootstrapping)</entry>
+              <entry align="center">-</entry>
+              <entry align="center">-</entry>
+              <entry align="center">2.0</entry>
+              <entry align="center">2.0</entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
+    </p>
+  
  </conbody>
 </concept>
