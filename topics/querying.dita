@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="concept_hl3_mhq_44">
- <title>Querying buckets</title>
- <shortdesc>You can retrieve sets of information from Couchbase Server by using view queries or N1QL queries.  </shortdesc>
+ <title>Querying Buckets</title>
+ <shortdesc>Besides the document and atomic operations, Couchbase supports two other ways of querying your data: Views and N1QL. Views allow you to provide secondary and composite indexes and transform results using Map/Reduce. N1QL is the new language for querying documents in Couchbase Server.  
+ </shortdesc>
 </concept>

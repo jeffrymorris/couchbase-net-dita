@@ -2,30 +2,26 @@
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="concept_bjc_nhq_44">
 	<title>Updating documents</title>
-	<shortdesc>You can update a document by using the <codeph>upsert()</codeph> or
-			<codeph>replace()</codeph> methods. </shortdesc>
+	<shortdesc>Documents can be updated in place by one of two methods: <apiname>Replace</apiname> and <apiname>Upsert</apiname>. </shortdesc>
 	<conbody>
-		<p>The <codeph>replace()</codeph> method replaces a document that already exists with new
-			contents. The <codeph>upsert()</codeph> method creates the document if it does not already
-			exist. </p>
-		<p>The following example shows how to update a document by using the
-				<codeph>replace()</codeph> method:</p>
-		<p>
-			<codeblock outputclass="language-javascript">var myBucket = myCluster.openBucket();
-myBucket.replace('document_name', {some: 'value'}, function(err, res) {
-  if (err) {
-    console.log('operation failed', err);
-    /*
-    operation failed { [Error: The key does not exist on the server] code: 13 }
-    */
-    return;
-  }
-
-  console.log('success!', res);
-});</codeblock>
+		<p><apiname>Replace()</apiname> will replace an existing document within Couchbase, failing if it doesn’t exist and <apiname>Upsert()</apiname> will replace an existing document, creating it if doesn’t exist. 
 		</p>
-		
-		<p>Sample output from the example:</p>
-		<codeblock>success! { cas: { '0': 3085434880, '1': 1662465098 } }</codeblock>
+		<codeblock outputclass="language-csharp">
+			var person = document.Value;
+            person.FirstName = "Tom";
+            person.LastName = "Finnigan";
+
+            if (bucket.Replace(document).Success)
+            {
+                var result = bucket.GetDocument&lt;Person>("P1");
+                if (result.Success)
+                {
+                    person = result.Value;
+                    Console.WriteLine("Replaced document '{0}': {1} {2}", 
+                        document.Id, person.FirstName, person.LastName);
+                }
+            }
+		</codeblock>
+		<p>Note that if the document didn’t already exist, on line 55, the Replace call would fail and the results printed on lines 61 and 62 would not be “Tom” and “Finnigan”</p>
 	</conbody>
 </concept>

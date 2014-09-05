@@ -2,7 +2,8 @@
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="concept_hll_mhq_44">
  <title>Working with documents</title>
- <shortdesc>This topic covers the basic CRUD operations of creating, retrieving, updating, and deleting documents. It also describes how to do bulk operations and atomic operations.</shortdesc>
+ <shortdesc>Couchbase Server is a document database at it’s core. Key values are stored as JSON documents if they are in fact valid JSON; otherwise they are stored as binary blobs. In most cases the intention of the application developer is to store documents as JSON. To make it easier to work with JSON documents, we have added document-centric APIs to our SDK’s. In this section, we will go over storing, deleting and retrieving documents using these APIs.
+ </shortdesc>
  <conbody>
   <p></p>
  </conbody>

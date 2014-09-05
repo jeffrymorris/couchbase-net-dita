@@ -2,38 +2,78 @@
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="concept_yny_mhq_44">
 	<title>Retrieving documents</title>
-	<shortdesc>You can retrieve documents by using regular reads or replica reads.</shortdesc>
+	<shortdesc>Documents are retrieved by unique identifier (key). There are two ways of retrieving documents: consistent reads using the primary and inconsistent reads using replicas.</shortdesc>
 	<conbody>
 		
 		<section>
 			<title>Regular reads </title>
-			
-			<p>You perform regular reads by using the <codeph>get()</codeph> method. Regular reads enable you
-				to retrieve a previously stored document from your active data set. </p>
-			<p>The following example shows a regular read:</p>
-			<codeblock outputclass="language-javascript">var myBucket = myCluster.openBucket();
-myBucket.get(‘document_name’, function(err, res) {
-  if (err) {
-    console.log(‘operation failed’, err);
-    /*
-    operation failed { [Error: The key already exists in the server.] code: 12 }
-    */
-    return;
+			<p>In most cases you will want to use regular reads for accessing your documents in Couchbase Server. In this case the client will reading from the primary cluster node.</p>
+			<p>There are two methods defined (with many overloads) for reading documents, the first one takes
+				the unique identifier of the document and returns an IOperationResult&lt;T&gt;
+				object and the other takes the unique identifier and returns an
+				IDocumentResult&lt;T&gt; object. Here is an example of using the latter:</p>
+			<codeblock outputclass="language-csharp">
+  var result = bucket.GetDocument&lt;Person&gt;("P1");
+  if (result.Success)
+  {
+      var person = result.Value;
+      Console.WriteLine("Retrieved document '{0}': {1} {2}", id, person.FirstName, person.LastName);
   }
-  console.log(‘success!’, res);  
-}); </codeblock>
+			</codeblock>
 			
-			<p>Sample output from the example:</p>
-			<codeblock>success! { cas: { '0': 2565341184, '1': 3756057754 } }</codeblock>
+			<p>The two perform essentially the same purpose; they retrieve a document from Couchbase by Id and cast the value to specified Type T. The IDocumentResult&lt;T&gt; and IOperationResult&lt;T&gt; interfaces are nearly symmetric and offer properties for checking whether or not the operation completed successfully (Success) and if the operation failed the server’s response status (Status) and an optional message with reason why.</p>
+		
+			<p>Here is a table describing the IDocumentResult&lt;T&gt; interface:</p>
+			<p><table frame="all" rowsep="1" colsep="1" id="table_gzw_jld_3p">
+					<title>IDocumentResult&lt;T> Properties</title>
+						<tgroup cols="3">
+							<colspec colnum="1" colname="col1"/>
+							<colspec colnum="2" colname="col2"/>
+							<colspec colnum="3" colname="col3"/>
+							<thead>
+								<row>
+									<entry >Name</entry>
+									<entry >Type</entry>
+									<entry >Description</entry>
+								</row>
+							</thead>
+							<tbody>
+								
+								<row>
+									<entry >Status</entry>
+									<entry >ResponseStatus*</entry>
+									<entry >The memcached response status from the
+										server</entry>
+								</row>
+								<row>
+									<entry >Value</entry>
+									<entry >IDocument&lt;T&gt;</entry>
+									<entry >A type constrained representing a JSON
+										document</entry>
+								</row>
+								<row>
+									<entry >Message</entry>
+									<entry >string</entry>
+									<entry >The message returned by the server or the
+										client if the request could not be satisfied</entry>
+								</row>
+								<row>
+									<entry >Success</entry>
+									<entry >boolean</entry>
+									<entry >True if the request was successful</entry>
+								</row>
+							</tbody>
+						</tgroup>
+					</table>
+				</p>
 			
 		</section>
 		
 		<section>
 			<title>Replica reads</title>
-			<p>You perform replica reads by using the <codeph>getReplica()</codeph> method. Replica reads
-				enable you to retrieve a previously stored document by querying the replica copies of
-				this document rather than the active one. This is not guaranteed to be consistent, but
-				does permit a level of recovery in case the primary server is not reachable.</p>
+			<p>In certain cases when availability is favored over consistency, replica reads may be used. A replica read will return data from the non-authoritative location - e.g. a node other than it’s master.
+			</p>
+			
 		</section>
 
 	</conbody>

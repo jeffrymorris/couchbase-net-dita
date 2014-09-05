@@ -2,124 +2,109 @@
 <!DOCTYPE concept
   PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept xml:lang="en-us" id="concept2677">
-	<title>Hello Couchbase example</title>
+	<title>Hello Couchbase!</title>
 	<conbody>
-		<p>To follow the tradition of programming tutorials, the first code example is a “Hello Couchbase”
-			app. This example works with the <codeph>beer-sample</codeph> bucket that is provided with
-			Couchbase Server. The following sections contain instructions for running the example app
-			and the annotated Hello Couchbase code.</p>
-		<section>
-			<title>Running Hello Couchbase</title>
-			<p>To run the example Hello Couchbase program:</p>
-			<ol id="ol_fw2_rt5_t4">
-				<li>Start Couchbase Server on your computer.</li>
-				<li>Open the Couchbase administrator console.</li>
-					<li>Make sure the <codeph>beer-sample</codeph>
-					bucket is available by checking for it under the <uicontrol>Data Buckets</uicontrol>
-					tab. If you need to install the bucket:<ol id="ol_bz2_rt5_t4">
-						<li>Select <menucascade>
-								<uicontrol>Settings</uicontrol>
-								<uicontrol>Sample Buckets</uicontrol>
-							</menucascade>.</li>
-						<li>Install the <codeph>beer-sample</codeph> bucket.</li>
-					</ol></li>
-				<li>If you haven't already installed the Couchbase Node.js module, <xref format="dita"
-						scope="local" href="download-install.dita">install Couchnode</xref>.</li>
-				<li>Copy and paste the Hello Couchbase code into a file named
-						<filepath>hello-couchbase.js</filepath>. The code is located in the next
-					section.</li>
-				<li>In a terminal window, change to the directory that contains the
-						<filepath>hello-couchbase.js</filepath> code.</li>
-				<li>Execute the following command:
-					<codeblock>shell&gt; node hello-couchbase.js</codeblock>
-				</li>
-			</ol>
+		<p>Once you have used one of the three methods outlined above to reference the Couchbase .NET SDK in your Visual Studio Project, it’s time to write some code! In this section we will go over creating a simple “Hello World” application using the SDK. At this point it’s expected that you have read the sections on referencing the SDK and you are comfortable creating a Visual Studio Project that consumes it. If not, please re-read the sections above starting with “Getting Started”.</p>
+		<section><title>Pre-requisites</title>
+			<p>In order to complete the “Hello World” tutorial, you’ll need the following prerequisites installed:
+			</p>
+			<p>
+				<ul>
+					<li>Microsoft Visual 2012 or later</li>
+					<li>Microsoft .NET Framework 4.5 or later</li>
+					<li>Couchbase Server 2.5 or greater installed locally (localhost/127.0.0.1)</li>
+					<li>A Couchbase bucket called “default” installed</li>
+				</ul>
+			</p>
+			<p>Before continuing, make sure you have prerequisites above satisfied.</p>
 		</section>
-			
-			<section>
-			<title>Hello Couchbase code</title>
-			<p>The Hello Couchbase example consists of one JavaScript file,
-					<filepath>hello-couchbase.js</filepath>. The code opens a connection to Couchbase
-				Server, retrieves a document, modifies the document, and stores the updated document in
-				the database. Here's the <filepath>hello-couchbase.js</filepath> code:</p>
-			<codeblock outputclass="language-javascript" spectitle="hello-couchbase.js">
-var couchbase = require("couchbase");
+		<section><title>Tutorial</title>
+			<p>In this tutorial, we will create a simple console application using Visual Studio
+				that illustrates the most basic usage and example of the Couchbase .NET SDK.
+				</p><p>To begin, open Visual Studio and create a new Console Application Project,
+				called Couchbase.HelloCouchbase: </p>
+			<p>
+				<image href="../images/hello-couchbase-visual-studio.png" id="image_i31_yqb_3p"/>
+			</p>
+			<p>This will create a simple executable with a main() method that we can use to
+				illustrate reading and writing from a Couchbase Cluster.</p><p>Once you have done
+				this, will use the Nuget Package Manager to reference the Couchbase .NET SDK and
+				it’s dependencies: </p>
+			<p/>
+			<image href="../images/hello-couchbase-nuget.png" id="image_rmn_hsb_3p"/>
+			<p>At this point, you should be ready to go. Let’s add a CouchbaseCluster object, which
+				represents a factory and resource manager for Couchbase Buckets. This will be added
+				to the Program.cs file that was added automatically by Visual Studio when the
+				project was created:</p>
+			<codeblock outputclass="language-csharp" spectitle="Creating the Cluster and Bucket">
+internal class Program
+{
+    private static readonly CouchbaseCluster Cluster = new CouchbaseCluster();
 
-// Connect to Couchbase Server
-
-var cluster = new couchbase.Cluster('127.0.0.1:8091');
-var bucket = cluster.openBucket('beer-sample', function(err) {
-  if (err) {
-    // Failed to make a connection to the Couchbase cluster.
-    throw err;
-  }
-
-  // Retrieve a document
-
-  bucket.get('aass_brewery-juleol', function(err, result) {
-    if (err) {
-      // Failed to retrieve key
-      throw err;
+    private static void Main(string[] args)
+    {
+        using (var bucket = Cluster.OpenBucket())
+        {
+            
+        }
     }
+}
+			</codeblock>
+			<p>The default OpenBucket() overload with no parameters, will open the “default” bucket.
+				Additionally, since we chose to use the default constructor when we created the
+				CouchbaseCluster object, the cluster/server we will be using will be our localhost
+				(127.0.0.1) instance of Couchbase. Later on, we will show how to use configuration
+				to connect to remote clusters and take advantage of other configuration options.</p>
+			<p>Note that the CouchbaseBucket object (as well as the CouchbaseCluster object)
+				implement the Dispose Pattern, because of this we are wrapping the instance in a
+				using statement which means that the internal resources allocated by the instance
+				will be reclaimed as the bucket instance goes out of scope. Managing the lifetime or
+				“scope” of these objects is critical to developing high-performing, robust
+				applications with the .NET SDK. In a later section we will go over this in
+				detail.</p>
+			<p> Now that we have connected to a Couchbase bucket, let’s create a document and add it
+				to the database: </p>
+			<p>
+				<codeblock outputclass="language-csharp" spectitle="Storing a document">
+using (var bucket = Cluster.OpenBucket())
+{
+    var document = new Document&lt;dynamic&gt;
+    {
+        Id = "Hello",
+        Content = new
+        {
+            Name = "Couchbase"
+        }
+    };
 
-    var doc = result.value;
-
-    console.log(doc.name + ', ABV: ' + doc.abv);
-    
-    // Store a document
-
-    doc.comment = "Random beer from Norway";
-
-    bucket.replace('aass_brewery-juleol', doc, function(err, result) {
-      if (err) {
-        // Failed to replace key
-        throw err;
-      }
-
-      console.log(result);
-
-      // Success!
-      process.exit(0);
-    });
-  });
-});
-</codeblock>
-				
-				<p>The console output should look similar to this:</p>
-				
-				<codeblock outputclass="language-bourne">Juleøl, ABV: 5.9
-{ cas: { '0': 1024851968, '1': 467655457 } }</codeblock>
-			<p>The following points explain each step in the example:</p>
-			<ul>
-				<li><i>Connecting</i>
-					<p>A <codeph>Bucket</codeph> object represents a connection to a single bucket
-						within the cluster.</p><p>A bucket represents a logical namespace for a key.
-						All keys must be unique within a single bucket, but multiple buckets can
-						have keys with the same names and they will not conflict. A new connection
-						object must be created for each bucket that you want to interact with in
-						your application. This example creates one connection to the
-							<codeph>beer-sample</codeph> bucket.</p><p>The constructor is passed the
-						bucket name, which is <codeph>beer-sample</codeph>, and a node on the
-						cluster to connect to. You can pass any node that is a member of the
-						cluster. This example uses the local cluster instance.</p></li>
-				<li><i>Retrieving Data</i>
-					<p>The <codeph>get()</codeph> method initiates an asynchronous request to retrieve
-						the specified key. If the key exists, the callback is invoked with a results
-						object that contains the value of the key and any additional metadata returned
-						from the cluster. To get the actual value of the object, you can access the result
-						object’s value property.</p><p>If the key does not exist on the server, the
-						callback is invoked with an unset value property on the result object (it will not
-						set the callbacks error parameter).</p></li>
-				<li><i>Storing Data</i>
-					<p>To store documents in the server, you can use one of the <codeph>set</codeph>
-						family of methods. This example uses the <codeph>replace()</codeph> method, which
-						enforces the constraint that a previous value of the document must already exist.
-						This can be thought of as an update operation in terms of CRUD (create, read,
-						update, delete) operations.</p><p>The storage methods also return a result object
-						that contains metadata about the value that was stored.</p></li>
-			</ul>
+    var upsert = bucket.Upsert(document);
+    if (upsert.Success)
+    {
+        var get = bucket.GetDocument&lt;dynamic&gt;(document.Id);
+        document = get.Document;
+        var msg = string.Format("{0} {1}!", document.Id, document.Content.Name);
+        Console.WriteLine(msg);
+    }
+    Console.Read();
+}
+			</codeblock>
+			</p>
+			<p>First, we are creating a new Document object, typing it as “dynamic” and providing an
+				Id value. Then, we are creating the actual value that will be stored as JSON in
+				Couchbase and assigning it to the Content property. Once we have created the
+				Document object, we use the Upsert(..) method to store it into the database.
+				Finally, we check whether or not the operation was succesful and if it is, do
+				GetDocument(...) operation to retrieve the document and format a string with the Id
+				of the document and the Name property from the Content field (the actual JSON
+				document).</p><p>If you build and run this from Visual Studio, you should see the
+				following prompt:</p>
+			<p>
+				<codeblock outputclass="language-bourne">Hello Couchbase!</codeblock>
+			</p>
+			<p>Congratulations, you have successfully create the Hello Couchbase Tutorial! Note,
+				that the full source can be found on <xref
+					href="https://github.com/couchbaselabs/couchbase-net-examples/tree/master/Src/Couchbase.HelloCouchbase"
+					format="html" scope="external">Github</xref>.</p>
 		</section>
-
-
 	</conbody>
 </concept>

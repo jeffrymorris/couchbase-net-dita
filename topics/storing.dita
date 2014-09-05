@@ -2,24 +2,100 @@
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="concept_az5_mhq_44">
  <title>Creating documents</title>
-	<shortdesc>You can create a document by using  the <codeph>insert()</codeph> or <codeph>upsert()</codeph>
-		methods.</shortdesc>
+  <shortdesc>The <apiname>IDocument&lt;T&gt;</apiname> interface represents an abstraction for working with documents in Couchbase Server.
+  </shortdesc>
  <conbody>
-  <p>Performing an insert  succeeds only if no document with that name exists. In
-			contrast, an upsert overwrites any existing matching document.</p>
-		<p>The following example shows how to create a new document with the <codeph>insert()</codeph>
-			method:</p>
-  <codeblock outputclass="language-javascript">var myBucket = myCluster.openBucket();
-myBucket.insert('document_name', {some:'value'}, function(err, res) {
-  if (err) {
-    console.log('operation failed', err);
-    return;
-  }
+   <p>The default implementation of <apiname>IDocument&lt;T&gt;</apiname>is the <apiname>Document&lt;T&gt;</apiname> class, which provides the following properties:</p>
+   <p>
+        <table id="table_p4p_t3d_3p">
+          <tgroup cols="3">
+          <colspec colnum="1" colname="col1" colwidth="1*"/>
+          <colspec colnum="2" colname="col2" colwidth="1.14*"/>
+          <colspec colnum="3" colname="col3" colwidth="5.17*"/>
+            <thead>
+              <row>
+                <entry>Name</entry>
+                <entry>Type</entry>
+                <entry>Description</entry>
+              </row>
+            </thead>
+            <tbody>
+            
+            <row>
+              <entry>Id</entry>
+              <entry>string</entry>
+              <entry>The unique identifier for the document</entry>
+            </row>
+            <row>
+              <entry>Cas</entry>
+              <entry>ulong</entry>
+              <entry>The “Check and Set” value for enforcing optimistic concurrency</entry>
+            </row>
+            <row>
+              <entry>Expiry</entry>
+              <entry>uint</entry>
+              <entry>The time-to-live (TTL) of the document in milliseconds. A value of zero or less
+                for infinite lifetime.</entry>
+            </row>
+            <row>
+              <entry>Value</entry>
+              <entry>Generic T</entry>
+              <entry>The actual document value to store. This can be a scalar value, an object, or a
+                dynamic type.</entry>
+            </row>
+          </tbody>
+        </tgroup>
+        </table>
+      </p>
+   <p>The following code snippet shows how to insert a document into Couchbase:</p>
+   <codeblock outputclass="language-csharp">
+  var document = new Document&lt;Person&gt;
+  {
+      Id = "P1",
+      Value = new Person
+      {
+          FirstName = "John",
+          LastName = "Adams",
+          Age = 21
+      }
+  };
 
-  console.log('success!', res);
-});</codeblock>
- 	
- 	<p>Sample output from the example:</p>
- 	<codeblock>success! { cas: { '0': 1927806976, '1': 2727156638 } }</codeblock>
+  var result = bucket.Insert(document);
+  if (result.Success)
+  {
+      Console.WriteLine("Inserted document '{0}'", document.Id);
+  }
+   </codeblock>
+   <p>In this example, we are using the <apiname>Insert()</apiname> method, which creates a document if it doesn’t exist, failing if it does. Besides the <apiname>Upsert()</apiname> method there are two other methods for inserting documents. The following table shows the methods that are available for storing documents in Couchbase:
+   </p>
+   <p>
+        <table id="table_dgx_4jd_3p">
+          <tgroup cols="2">
+            <colspec colnum="1" colname="col1"/>
+            <colspec colnum="2" colname="col2"/>
+            <thead>
+              <row>
+                <entry dir="ltr">Name</entry>
+                <entry dir="ltr">Description</entry>
+              </row>
+            </thead>
+            <tbody>
+              <row>
+                <entry dir="ltr">Insert</entry>
+                <entry dir="ltr">Inserts a document, failing if it already exists</entry>
+              </row>
+              <row>
+                <entry dir="ltr">Replace</entry>
+                <entry dir="ltr">Replaces a document, failing if doesn’t exist</entry>
+              </row>
+              <row>
+                <entry dir="ltr">Upsert</entry>
+                <entry dir="ltr">Updates a document if it exists, otherwise inserts the
+                  document</entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </table>
+      </p>
  </conbody>
 </concept>

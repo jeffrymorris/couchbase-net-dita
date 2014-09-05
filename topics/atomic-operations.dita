@@ -2,101 +2,82 @@
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="concept_iqn_nhq_44">
  <title>Atomic operations</title>
-	<shortdesc>The Node.js Couchbase SDK supports several operations that allow one-step, atomic
-		changes to documents. These operations include counter, prepend, and append
-		functions.</shortdesc>
+	<shortdesc>Besides the basic CRUD operations such as <apiname>Insert()</apiname>, <apiname>Replace()</apiname> and <apiname>Remove()</apiname>, the Couchbase SDK also supports atomic operations on a doucument.</shortdesc>
  <conbody>
-		
-		<section>
-			<title>Counter operation</title>
-			<p>The <codeph>counter()</codeph> method enables you to implement an atomic counter as a
-				Couchbase document. These operations expect UTF-8 encoded string representations of
-				the number. You can either execute this operation against a previously created
-				document, or create a new document by using the <codeph>initial</codeph> property
-				passed as an option.  More information about the initial property is available
-				below.</p>
-		<p>The following example shows how to use the <codeph>counter()</codeph> method to increment your
-				counter and get the value back:</p>
+		<p>The following atomic operations are supported:</p>
 		<p>
-			<codeblock outputclass="language-javascript">var myBucket = myCluster.openBucket();
-myBucket.insert('document_name', 10, function() {
-  myBucket.counter('document_name', 1, function(err, res) {
-    if (err) {
-      console.log('operation failed', err);
-      return;
-    }
+				<table id="table_sht_2nd_3p">
+					<tgroup cols="2">
+					<colspec colnum="1" colname="col1" colwidth="1*"/>
+					<colspec colnum="2" colname="col2" colwidth="4*"/>
+					<thead>
+						<row>
+							<entry>Name</entry>
+							<entry>Description</entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry>Increment</entry>
+							<entry>Increments the value of a key by a given delta</entry>
+						</row>
+						<row>
+							<entry>Decrement</entry>
+							<entry>Decrements the value of a key by a given delta</entry>
+						</row>
+						<row>
+							<entry>Append</entry>
+							<entry>Appends to the back of the value of a given key</entry>
+						</row>
+						<row>
+							<entry>Prepend</entry>
+							<entry>Prepends to the front of the value of a given key</entry>
+						</row>
+					</tbody>
+				</tgroup>
+				</table>
+			</p>
+ 	<p>Increment and decrement are often used as counters for game statistics or perhaps for tallying
+ 		likes or up votes in a social media application. Here is an example of using <apiname>Increment()</apiname>
+ 		and <apiname>Decrement()</apiname>:</p>
+ 	<codeblock outputclass="language-csharp">
+ 	static CouchbaseCluster _cluster = new CouchbaseCluster();
 
-    console.log('success!', res);
-  });
-});</codeblock>
-		</p>		
-		<p>Sample output from the example:</p>
- 	<codeblock>success! { cas: { '0': 3085434880, '1': 1662465098 }, value: 11 }</codeblock>
-			<p>The following example shows how to use the <codeph>counter()</codeph> method to decrement your
-				counter and get the value back:</p>
-			<p>
-				<codeblock outputclass="language-javascript">var myBucket = myCluster.openBucket();
-myBucket.set('document_name', 10, function() {
-  myBucket.counter('document_name', -1, function(err, res) {
-    if (err) {
-      console.log('operation failed', err);
-      return;
-    }
+        static void Main(string[] args)
+        {
+            using (var bucket = _cluster.OpenBucket())
+            {
+                var key = "stats::counter1";
+                Increment(bucket, key);
+                Increment(bucket, key);
+                Decrement(bucket, key);
+                Decrement(bucket, key);
+                Decrement(bucket, key);
+            }
+            _cluster.Dispose();
+            Console.Read();
+        }
 
-    console.log('success!', res);
-  });
-});</codeblock>
-			</p>		
-			<p>Sample output from the example:</p>
-			<codeblock outputclass="">success! { cas: { '0': 9977273, '1': 3468060 }, value: 9 }</codeblock>
-			<p>You can additionally perform a counter operation with an initial value specified. In this
-				case, the document will be created if it does not exist. The
-					<codeph>initial</codeph> property will do nothing if the document already
-				exists.<codeblock outputclass="language-javascript">var myBucket = myCluster.openBucket();
-myBucket.counter('document_name', 1, {initial:10}, function(err, res) {
-  if (err) {
-    console.log('operation failed', err);
-    return;
-  }
+        static void Increment(IBucket bucket, string key)
+        {
+            var result = bucket.Increment(key);
+            if (result.Success)
+            {
+                Console.WriteLine(result.Value);
+            }
+        }
 
-  console.log('success!', res);
-});</codeblock></p>
-			<p>Sample output from the example:</p>
-			<codeblock outputclass="">success! { cas: { '0': 9977273, '1': 3468060 }, value: 10 }</codeblock>
-			<note>If a new counter document is created by using the <codeph>initial</codeph>
-				property, the counter is set to the value of <codeph>initial</codeph>, not
-					<codeph>initial+offset</codeph>. </note>
-		
-		</section>
-
- 	<section>
- 		<title>Append and prepend operations</title>
-			<p>The append and prepend operations allow you to perform a binary append or prepend to
-				a Couchbase document.</p>
-				
-				<note> This operation is performed without any consideration
-					for data type, thus appending a JSON document to a JSON document will result in
-					an invalid object (for instance: <codeph>{}{}</codeph>).</note>
- 		
-			<p>The following is an example of how to use the append() method to add further text to
-				an already existing
-				document:</p><codeblock outputclass="language-javascript">var myBucket = myCluster.openBucket();
-// Insert a starting document
-myBucket.insert('document_name', 'Beautiful', function() {
-  // Append some content to it
-  myBucket.append('document_name', 'World!', function() {
-    // Prepend some more text
-    myBucket.prepend('document_name', 'Hello ', function() {
-      // Retrieve its updated contents
-      myBucket.get('document_name', function(err, res) {
-        console.log(err, res);
-      });
-    });
-  });
-});</codeblock>
-			<p>Sample output from the example:</p>
-			<codeblock>null { cas: { '0': 7112265, '1': 69427 }, value: 'Hello Beautiful World!' }</codeblock>
- 	</section>
- 	
+        static void Decrement(IBucket bucket, string key)
+        {
+            var result = bucket.Decrement(key);
+            if (result.Success)
+            {
+                Console.WriteLine(result.Value);
+            }
+        }
+ 	</codeblock>
+ 	<p>The <apiname>Increment()</apiname> or <apiname>Decrement()</apiname> operation will return the current value of the counter key after being called. Additional overloads allow a time-to-live (TTL) to be associated with a key and others allow you to control the delta of the increase or decrease and an optional starting point.</p>
+ 	<note>Note that the key you are incrementing or decrementing should be created by calling the <apiname>Increment()</apiname> or <apiname>Decrement()</apiname> themselves, not by using one of the other creational operations, such as <apiname>Insert()</apiname> or <apiname>Upsert()</apiname>. The reason is that the server stores the value as the ASCII representation and not as a 64 bit integer. </note>
+ 	<p>Decrementing the counter will not result in a negative value, instead it will be set to zero (0). Incrementing the counter may cause the counter wrap.</p>
 	</conbody>
 </concept>
