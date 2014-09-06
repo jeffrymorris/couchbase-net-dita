@@ -7,20 +7,20 @@
 		<p><apiname>Replace()</apiname> will replace an existing document within Couchbase, failing if it doesn’t exist and <apiname>Upsert()</apiname> will replace an existing document, creating it if doesn’t exist. 
 		</p>
 		<codeblock outputclass="language-csharp">
-			var person = document.Value;
-            person.FirstName = "Tom";
-            person.LastName = "Finnigan";
+ var person = document.Value;
+ person.FirstName = "Tom";
+ person.LastName = "Finnigan";
 
-            if (bucket.Replace(document).Success)
-            {
-                var result = bucket.GetDocument&lt;Person>("P1");
-                if (result.Success)
-                {
-                    person = result.Value;
-                    Console.WriteLine("Replaced document '{0}': {1} {2}", 
-                        document.Id, person.FirstName, person.LastName);
-                }
-            }
+ if (bucket.Replace(document).Success)
+ {
+    var result = bucket.GetDocument&lt;Person>("P1");
+    if (result.Success)
+    {
+        person = result.Value;
+        Console.WriteLine("Replaced document '{0}': {1} {2}", 
+            document.Id, person.FirstName, person.LastName);
+    }
+ }
 		</codeblock>
 		<p>Note that if the document didn’t already exist, on line 55, the Replace call would fail and the results printed on lines 61 and 62 would not be “Tom” and “Finnigan”</p>
 	</conbody>

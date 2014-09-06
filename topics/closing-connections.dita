@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_c5w_ppk_3p">
+ <title>Closing the Connection</title>
+ <shortdesc>Both CouchbaseCluster and CouchbaseCluster objects implement the IDisposable pattern and also have finalizers. That being said, managing the lifetime of these objects is critical for developing robust, high performance applications. In a typical application, you would create a single, static CouchbaseCluster object that would live the duration of the application or process’s lifetime - create the CouchbaseCluster object when the application starts and call it’s Dispose method when the application shuts down. Depending upon finalization is not suggested, but admissible in certain applications.</shortdesc>
+ <conbody>
+  <section>
+   <p>There are three ways to close a bucket and release the internal connections:
+   </p>
+   <ol>
+    <li>Through Finalization and Garbage Collection (GC)</li>
+    <li>Calling Dispose explicitly or implicitly via the using statement</li>
+    <li>By calling CouchbaseCluster.CloseBucket() and passing the bucket reference</li>
+   </ol>
+   <p>
+    The first way is the least dependable method and relies on a certain amount of non-determinism as you are relying on the CLR’s finalization mechanism; just let the object go out of scope. The second and third are the preferred methods in that you deterministically control the object's lifetime. Here is an example of using the third method:
+   </p>
+   <codeblock outputclass="language-csharp">
+  using (var cluster = new CouchbaseCluster(config))
+  {
+      IBucket bucket = null;
+      try
+      {
+          bucket = cluster.OpenBucket();
+          //use the bucket here
+      }
+      finally
+      {
+          if (bucket != null)
+          {
+              cluster.CloseBucket(bucket);
+          }
+      }
+  }
+		</codeblock>
+   <note>It’s important to note that the references to the <apiname>CouchbaseBucket</apiname> (or <apiname>MemcachedBucket</apiname>) are ref-counted; multiple threads maybe using the same object. If multiple threads are using the bucket and each calls either <apiname>CouchbaseCluster.CloseBucket()</apiname> or <apiname>Dispose()</apiname> (either implicitly through the using statement explicitly), the instance will not be disposed until the ref-count reaches zero.</note>
+  </section>
+ </conbody>
+</concept>

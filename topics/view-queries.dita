@@ -124,44 +124,43 @@
    <p>
         <table id="table_mnb_gqd_3p">
           <tgroup cols="2">
-            <colspec colnum="1" colname="col1"/>
-            <colspec colnum="2" colname="col2"/>
-            <thead>
-              <row>
-                <entry >Name</entry>
-                <entry >Description</entry>
-              </row>
-            </thead>
-            <tbody>
-             
-              <row>
-                <entry >Error</entry>
-                <entry >The error message returned by the View engine</entry>
-              </row>
-              <row>
-                <entry >Message</entry>
-                <entry >If the query failed as the result of a server error, a message
-                  indicating the reason why</entry>
-              </row>
-              <row>
-                <entry >Rows</entry>
-                <entry >A List&lt;T&gt; of T, which is the result of the query</entry>
-              </row>
-              <row>
-                <entry >Success</entry>
-                <entry >true if the query completed successfully</entry>
-              </row>
-              <row>
-                <entry >StatusCode</entry>
-                <entry >The HTTP status code returned by the server</entry>
-              </row>
-              <row>
-                <entry >TotalRows</entry>
-                <entry >The total rows available; may not match the exact rows returned if
-                  Limit is called.</entry>
-              </row>
-            </tbody>
-          </tgroup>
+          <colspec colnum="1" colname="col1" colwidth="1*"/>
+          <colspec colnum="2" colname="col2" colwidth="3.44*"/>
+          <thead>
+            <row>
+              <entry>Name</entry>
+              <entry>Description</entry>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <entry>Error</entry>
+              <entry>The error message returned by the View engine</entry>
+            </row>
+            <row>
+              <entry>Message</entry>
+              <entry>If the query failed as the result of a server error, a message indicating the
+                reason why</entry>
+            </row>
+            <row>
+              <entry>Rows</entry>
+              <entry>A List&lt;T&gt; of T, which is the result of the query</entry>
+            </row>
+            <row>
+              <entry>Success</entry>
+              <entry>true if the query completed successfully</entry>
+            </row>
+            <row>
+              <entry>StatusCode</entry>
+              <entry>The HTTP status code returned by the server</entry>
+            </row>
+            <row>
+              <entry>TotalRows</entry>
+              <entry>The total rows available; may not match the exact rows returned if Limit is
+                called.</entry>
+            </row>
+          </tbody>
+        </tgroup>
         </table>
       </p>
    <p>You can iterate over the Rows property if the query was successful or check the Message and Error properties if Success returns false to determine the reason why the query failed.

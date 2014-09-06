@@ -70,6 +70,9 @@
 					</tgroup>
 					</table>
 				</p>
+		<p>Certain timeouts such as ViewTimeout and QueryTimeout can also be overridden on a per query
+				basis. <note>In general, the default settings are sufficient for most applications -
+					only after encountering issues should they be adjusted.</note></p>
 	</section>
 	</conbody>
 </concept>

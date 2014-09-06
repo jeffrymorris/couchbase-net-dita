@@ -1,21 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
-<concept id="concept_z3r_zgq_44">
-	<title>Overview</title>
+<concept xml:lang="en-us" id="concept_z3r_zgq_44">
+	<title>SDK Overview</title>
 	<shortdesc> The Couchbase .NET SDK 2.0 is the official driver for Couchbase Server. Written
 		entirely in the C# programming language, it targets .NET Framework 4.5 and greater and
 		Couchbase Server 2.5 and greater</shortdesc>
 	<conbody>
 		<p>This is the documentation for the SDK and it groups features into sections. Within each feature
 			section, you will find concepts or tasks references to additional information or topics,
-			and other topics which are identified as relating to the feature in discussion.</p> 
-		
+			and other topics which are identified as relating to the feature in discussion.
+		</p>	
 		<p>Until the SDK reaches General Availability, expect the documentation to change with respect to structure and content.</p>
-		<p>Being a work in progress, feedback is greatly appreciated. Please send your comments, requests,
-			suggestions to <xref href="mailto:jeffry.morris@couchbase.com" format="html"
-				scope="external">jeffry.morris@couchbase.com</xref>.</p>
-		
+		<p>Being a work in progress, feedback is greatly appreciated. Please send your comments, requests, suggestions to <xref href="jeffry.morris@couchbase.com" format="html" scope="external">jeffry.morris@couchbase.com</xref>.</p>
 	</conbody>
-	
-	
 </concept>

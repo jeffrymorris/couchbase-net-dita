@@ -27,43 +27,40 @@
 			<p><table frame="all" rowsep="1" colsep="1" id="table_gzw_jld_3p">
 					<title>IDocumentResult&lt;T> Properties</title>
 						<tgroup cols="3">
-							<colspec colnum="1" colname="col1"/>
-							<colspec colnum="2" colname="col2"/>
-							<colspec colnum="3" colname="col3"/>
-							<thead>
-								<row>
-									<entry >Name</entry>
-									<entry >Type</entry>
-									<entry >Description</entry>
-								</row>
-							</thead>
-							<tbody>
-								
-								<row>
-									<entry >Status</entry>
-									<entry >ResponseStatus*</entry>
-									<entry >The memcached response status from the
-										server</entry>
-								</row>
-								<row>
-									<entry >Value</entry>
-									<entry >IDocument&lt;T&gt;</entry>
-									<entry >A type constrained representing a JSON
-										document</entry>
-								</row>
-								<row>
-									<entry >Message</entry>
-									<entry >string</entry>
-									<entry >The message returned by the server or the
-										client if the request could not be satisfied</entry>
-								</row>
-								<row>
-									<entry >Success</entry>
-									<entry >boolean</entry>
-									<entry >True if the request was successful</entry>
-								</row>
-							</tbody>
-						</tgroup>
+						<colspec colnum="1" colname="col1" colwidth="1*"/>
+						<colspec colnum="2" colname="col2" colwidth="1.66*"/>
+						<colspec colnum="3" colname="col3" colwidth="3.86*"/>
+						<thead>
+							<row>
+								<entry>Name</entry>
+								<entry>Type</entry>
+								<entry>Description</entry>
+							</row>
+						</thead>
+						<tbody>
+							<row>
+								<entry>Status</entry>
+								<entry>ResponseStatus*</entry>
+								<entry>The memcached response status from the server</entry>
+							</row>
+							<row>
+								<entry>Value</entry>
+								<entry>IDocument&lt;T&gt;</entry>
+								<entry>A type constrained representing a JSON document</entry>
+							</row>
+							<row>
+								<entry>Message</entry>
+								<entry>string</entry>
+								<entry>The message returned by the server or the client if the
+									request could not be satisfied</entry>
+							</row>
+							<row>
+								<entry>Success</entry>
+								<entry>boolean</entry>
+								<entry>True if the request was successful</entry>
+							</row>
+						</tbody>
+					</tgroup>
 					</table>
 				</p>
 			

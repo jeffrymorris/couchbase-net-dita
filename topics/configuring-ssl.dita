@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
+<concept id="concept_i4h_5pk_3p">
+ <title>Configuring SSL</title>
+ <shortdesc></shortdesc>
+ <conbody>
+   <p>One of the core features of Couchbase Server 3.0 is
+    support for encryption of data over the wire between the client and the cluster.
+    This is done through Secure Socket Layer (SSL) encryption. </p>
+   <p>To use SSL, there are two steps: </p>
+   <ol>
+    <li>Install a certificate provided by Couchbase the server on your application
+     server</li>
+    <li>Open a browser and navigate to the Couchbase Administration Console of the
+     cluster your client will be connecting to. Navigate to the Settings tab and
+     click the “Show” certificate to expose the certificate.</li>
+   </ol>
+   <p><image href="../images/couchbase-ssl.png" id="image_r1q_vgd_3p"/>
+   </p>
+   <p>Copy the entire contents of the certificate and store it in a file with a .crt
+    extension on the application server you wish to install the certificate.
+   </p>
+   <p> Once you have the certificate on the application server, you need to import it into
+    the local computer certificate store. On Windows, you can do this by using the
+    certificate MMC snap-in: certlm.
+   </p>
+   <p><image href="../images/installing-cert.png" id="image_yfd_1hd_3p"/>
+   </p>
+   <p>Right click on
+    the “Certificates” menu item and then “Import” on the Trusted Root Certification
+    Authorities root node. Follow the wizard to import the certificate you stored on disk
+    above.
+   </p>
+   <note spectitle="Configuring the Client">
+    Once you have the certificate installed on your application, to enable the SSL on the client either set the UseSsl property on the ClientConfiguration or BucketConfiguration to true. Alternatively, you can set the useSsl property within your Web.Config or App.Config if you are not programmatically doing your configuration.</note>
+ </conbody>
+</concept>

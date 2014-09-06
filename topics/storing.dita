@@ -71,31 +71,32 @@
    <p>
         <table id="table_dgx_4jd_3p">
           <tgroup cols="2">
-            <colspec colnum="1" colname="col1"/>
-            <colspec colnum="2" colname="col2"/>
-            <thead>
-              <row>
-                <entry dir="ltr">Name</entry>
-                <entry dir="ltr">Description</entry>
-              </row>
-            </thead>
-            <tbody>
-              <row>
-                <entry dir="ltr">Insert</entry>
-                <entry dir="ltr">Inserts a document, failing if it already exists</entry>
-              </row>
-              <row>
-                <entry dir="ltr">Replace</entry>
-                <entry dir="ltr">Replaces a document, failing if doesn’t exist</entry>
-              </row>
-              <row>
-                <entry dir="ltr">Upsert</entry>
-                <entry dir="ltr">Updates a document if it exists, otherwise inserts the
-                  document</entry>
-              </row>
-            </tbody>
-          </tgroup>
+          <colspec colnum="1" colname="col1" colwidth="1*"/>
+          <colspec colnum="2" colname="col2" colwidth="4.05*"/>
+          <thead>
+            <row>
+              <entry dir="ltr">Name</entry>
+              <entry dir="ltr">Description</entry>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <entry dir="ltr">Insert</entry>
+              <entry dir="ltr">Inserts a document, failing if it already exists</entry>
+            </row>
+            <row>
+              <entry dir="ltr">Replace</entry>
+              <entry dir="ltr">Replaces a document, failing if doesn’t exist</entry>
+            </row>
+            <row>
+              <entry dir="ltr">Upsert</entry>
+              <entry dir="ltr">Updates a document if it exists, otherwise inserts the
+                document</entry>
+            </row>
+          </tbody>
+        </tgroup>
         </table>
       </p>
+   <p>If the CAS (Check and Set) or Expires value is set, they will be honored for each operation.</p>
  </conbody>
 </concept>
