@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept xml:lang="en-us" id="concept_z3r_zgq_44">
-	<title>SDK Overview</title>
+	<title>SDK overview</title>
 	<shortdesc> The Couchbase .NET SDK 2.0 is the official .NET client library for Couchbase Server.
 		Written entirely in the C# programming language, it targets .NET Framework 4.5 and later and
 		Couchbase Server 2.5 and later.</shortdesc>

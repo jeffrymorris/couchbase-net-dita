@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="concept_g2m_5nk_3p">
- <title>Configuring the Client</title>
+ <title>Configuring the client</title>
  <shortdesc>While the client comes with reasonable default configuration settings, sometimes you
-  need to customize the configuration for your unique environment or use-case.</shortdesc>
+  need to customize the configuration for your unique environment or use case.</shortdesc>
  <conbody>
   <section>
-   <title>Programmatic Configuration</title>
-  <p>The client comes with a set of default values for it’s configuration. For the most part, these defaults are satisfactory for most development and production use, however, these values can be modified or overridden as needed to tune the client to specific use-cases and scenarios. The client can be configured in one of two ways: programmatically through the <codeph>ClientConfiguration</codeph> object or through the <codeph>App.Config</codeph> or <codeph>Web.Config</codeph>. </p>
-  <p><b>The ClientConfiguration Object</b></p>
+   <title>Programmatic configuration</title>
+  <p>The client comes with a set of default values for its configuration. For the most part, these
+				defaults are satisfactory for most development and production use, however, these values
+				can be modified or overridden as needed to tune the client to specific use-cases and
+				scenarios. The client can be configured in one of two ways: programmatically through the
+					<codeph>ClientConfiguration</codeph> object or through the
+					<codeph>App.Config</codeph> or <codeph>Web.Config</codeph>. </p>
+  <p><b>The ClientConfiguration object</b></p>
   <p>The client can be configured programmatically using the <apiname>ClientConfiguration</apiname> class and passing the custom configuration through one of the <apiname>CouchbaseCluster</apiname> constructor overloads. Through the <apiname>ClientConfiguration</apiname> you can also 
    configure individual buckets and their connection pools. </p>
   <p>Here is an example of overriding the default configuration settings with several overrides: </p>
-  <p><codeblock outputclass="language-csharp" spectitle="ClientConfiguration Example">
+  <p><codeblock outputclass="language-csharp" spectitle="ClientConfiguration example">
 var config = new ClientConfiguration
 {
   Servers = new List&lt;Uri&gt;
@@ -57,16 +62,22 @@ using (var cluster = new CouchbaseCluster(config))
   }
 }
 		</codeblock></p>
-  <p>At the top of the snippet we are creating the <apiname>ClientConfiguration</apiname> object and
-   using property initializers to override the default settings. We then are creating
-   the bootstrap list of servers for initiating communication between the client and
-   the cluster. The client will attempt to bootstrap off of each of these servers, when
-   it successfully connect with one of the servers in this list, the bootstrapping
-   process will end. </p>
-  <p>Why add more than one server to the bootstrap (Servers) list? It’s possible that one or more of the servers in that list may not be part of the cluster at the time the client is created. By providing a range of nodes as bootstrap candidates, the likelihood of client finding a suitable node to connect to increases. Note that once the client successfully  bootstraps, it will receive a server configuration of the current state of the cluster. It will use this server configuration to update the bootstrap list by adding any additional candidate bootstrap servers to it</p>
+  <p>At the top of the snippet, the code creates the <apiname>ClientConfiguration</apiname> object
+				and uses property initializers to override the default settings. It then creates the
+				bootstrap list of servers for initiating communication between the client and the
+				cluster. The client attempts to bootstrap off of each of these servers. When it
+				successfully connects with one of the servers in this list, the bootstrapping process
+				ends. </p>
+  <p>Why add more than one server to the bootstrap (Servers) list? It’s possible that one or more of
+				the servers in that list might not be part of the cluster at the time the client is
+				created. By providing a range of nodes as bootstrap candidates, the likelihood of the
+				client finding a suitable node to connect to increases. After the client successfully
+				bootstraps, it receives a server configuration of the current state of the cluster. It
+				uses this server configuration to update the bootstrap list by adding any additional
+				candidate bootstrap servers to it.</p>
   <p>Here are all of the <apiname>ClientConfiguration</apiname> members and their defaults:</p>
   <table id="table_ivc_5mc_3p">
-   <title>ClientConfiguration Properties</title>
+   <title>ClientConfiguration properties</title>
    <tgroup cols="3">
     <colspec colnum="1" colname="col1" colwidth="1*"/>
     <colspec colnum="2" colname="col2" colwidth="3.34*"/>
@@ -80,83 +91,81 @@ using (var cluster = new CouchbaseCluster(config))
     </thead>
     <tbody>
      <row>
-      <entry>UseSsl</entry>
-      <entry>Whether or not to use SSL encrypt data being sent to and from the
-       server</entry>
+      <entry><codeph>UseSsl</codeph></entry>
+      <entry>Whether or not to use SSL encrypt data being sent to and from the server</entry>
       <entry>false</entry>
      </row>
      <row>
-      <entry>SslPort</entry>
+      <entry><codeph>SslPort</codeph></entry>
       <entry>Overrides the DirectPort and sets the SSL port to use for
        Key/Value operations using the Binary Memcached protocol id UseSsl
        is enabled</entry>
       <entry>11207</entry>
      </row>
      <row>
-      <entry>ApiPort</entry>
+      <entry><codeph>ApiPort</codeph></entry>
       <entry>The port to use for the Views API</entry>
       <entry>8092</entry>
      </row>
      <row>
-      <entry>DirectPort</entry>
-      <entry>The port to use for standard memcached binary operations e.g.
-       storing and retrieving documents by key</entry>
+      <entry><codeph>DirectPort</codeph></entry>
+      <entry>The port to use for standard memcached binary operations such as storing and retrieving
+								documents by key</entry>
       <entry>11210</entry>
      </row>
      <row>
-      <entry>MgmtPort</entry>
+      <entry><codeph>MgmtPort</codeph></entry>
       <entry>The port to use for the Management API</entry>
       <entry>8091</entry>
      </row>
      <row>
-      <entry>HttpsMgmtPort</entry>
-      <entry>Overrides the MgmtPort and sets the SSL port to use for the
-       Management API</entry>
+      <entry><codeph>HttpsMgmtPort</codeph></entry>
+      <entry>Overrides the <codeph>MgmtPort</codeph> and sets the SSL port to use for the Management
+								API</entry>
       <entry>18091</entry>
      </row>
      <row>
-      <entry>HttpsApiPort</entry>
-      <entry>Overrides the ApiPort and sets the SSL port to use for the Views
-       API</entry>
+      <entry><codeph>HttpsApiPort</codeph></entry>
+      <entry>Overrides the <codeph>ApiPort</codeph> and sets the SSL port to use for the Views
+								API</entry>
       <entry>18092</entry>
      </row>
      <row>
-      <entry>OperationTimeout</entry>
+      <entry><codeph>OperationTimeout</codeph></entry>
       <entry>The amount of time the client will wait on a pending operation
        before timing out.</entry>
-      <entry>2500ms</entry>
+      <entry>2500 ms</entry>
      </row>
      <row>
-      <entry>ObserveInterval</entry>
+      <entry><codeph>ObserveInterval</codeph></entry>
       <entry>The interval to wait before each Observe attempt</entry>
-      <entry>10ms</entry>
+      <entry>10 ms</entry>
      </row>
      <row>
-      <entry>ObserveTimeout</entry>
-      <entry>The max amount of time to wait before timing out</entry>
-      <entry>500ms</entry>
+      <entry><codeph>ObserveTimeout</codeph></entry>
+      <entry>The maximum amount of time to wait before timing out</entry>
+      <entry>500 ms</entry>
      </row>
      <row>
-      <entry>Servers</entry>
+      <entry><codeph>Servers</codeph></entry>
       <entry>The list of servers to bootstrap from</entry>
       <entry>http://localhost:8091/pools</entry>
      </row>
     </tbody>
    </tgroup>
   </table>
-  <p>In the "ClientConfiguration Example" code snippet above, the UseSsl property is set to true,
-   indicating that all traffic between the client and the cluster will be encrypted.
-   Note that to use this feature, the server hosting the application will need to have
-   the appropriate certificate installed and the cluster will have to be Couchbase
-   Server version 3.0 or greater. For more detail, please see: [link to installing
-   certs].</p>
+  <p>In the ClientConfiguration example code snippet, the <codeph>UseSsl</codeph> property is set to
+				true, indicating that all traffic between the client and the cluster will be encrypted.
+				To use this feature, the server hosting the application  needs to have the appropriate
+				certificate installed and the cluster must be Couchbase Server version 3.0 or later. For
+				more detail, please see: [link to installing certs].</p>
   <p>In the example above, we are specifying a configuration for the “default” bucket. Providing a
-   bucket level configuration will override any configuration settings set at the
-   cluster level. The BucketConifguration members and there defaults are as
-   follows:</p>
+				bucket level configuration will override any configuration settings set at the cluster
+				level. The <codeph>BucketConifguration</codeph> members and their defaults are as
+				follows:</p>
   <p>
    <table id="table_ww5_t4c_3p">
-    <title>BucketConfiguraton Properties</title>
+    <title>BucketConfiguraton properties</title>
     <tgroup cols="3">
      <colspec colnum="1" colname="col1" colwidth="1*"/>
      <colspec colnum="2" colname="col2" colwidth="3.34*"/>
@@ -171,35 +180,35 @@ using (var cluster = new CouchbaseCluster(config))
      <tbody>
       
       <row>
-       <entry>BucketName</entry>
+       <entry><codeph>BucketName</codeph></entry>
        <entry>The name of the bucket to connect to.</entry>
        <entry>“default”</entry>
       </row>
       <row>
-       <entry>UseSsl</entry>
+       <entry><codeph>UseSsl</codeph></entry>
        <entry>Whether or not to use SSL encrypt data being
         sent to and from the server</entry>
        <entry>false</entry>
       </row>
       <row>
-       <entry>Password</entry>
+       <entry><codeph>Password</codeph></entry>
        <entry>The bucket password</entry>
        <entry>empty string</entry>
       </row>
       <row>
-       <entry>ObserveInterval</entry>
+       <entry><codeph>ObserveInterval</codeph></entry>
        <entry>The interval to wait before each Observe
         attempt</entry>
        <entry>10ms</entry>
       </row>
       <row>
-       <entry>ObserverTimeout</entry>
+       <entry><codeph>ObserverTimeout</codeph></entry>
        <entry>The max amount of time to wait before timing
         out</entry>
        <entry>500ms</entry>
       </row>
       <row>
-       <entry>PoolConfiguration</entry>
+       <entry><codeph>PoolConfiguration</codeph></entry>
        <entry>The TCP socket pool configuration</entry>
        <entry>(see below)</entry>
       </row>
@@ -207,14 +216,14 @@ using (var cluster = new CouchbaseCluster(config))
     </tgroup>
    </table>
   </p>
-  <p>Finally, in the "ClientConfiguration Example" code snippet above, we are providing a new
-   PoolConfiguration, which will override the default MaxSize and MinSize of 2 and one
-   respectively, with the values 5 and 2. This means that the pool will start with 2
-   TCP connections and grow to 5 TCP connections on demand. </p>
-  <p>The rest of the PoolConfiguration members and their defaults:
-  </p>
+  <p>Finally, in the ClientConfiguration example code snippet, it provides a new
+					<codeph>PoolConfiguration</codeph>, which overrides the default
+					<codeph>MaxSize</codeph> and <codeph>MinSize</codeph> of 2 and 1 respectively, with
+				the values 5 and 2. This means that the pool will start with 2 TCP connections and grow
+				to 5 TCP connections on demand. </p>
+  <p>The rest of the <codeph>PoolConfiguration</codeph> members and their defaults: </p>
   <table id="table_nny_z4c_3p">
-   <title>The PoolConfiguration Properties</title>
+   <title>PoolConfiguration properties</title>
    <tgroup cols="3">
     <colspec colnum="1" colname="col1"/>
     <colspec colnum="2" colname="col2"/>
@@ -229,31 +238,31 @@ using (var cluster = new CouchbaseCluster(config))
     <tbody>
      
      <row>
-      <entry dir="ltr">MaxSize</entry>
-      <entry dir="ltr">The max number of TCP connection to use</entry>
+      <entry dir="ltr"><codeph>MaxSize</codeph></entry>
+      <entry dir="ltr">The maximum number of TCP connection to use</entry>
       <entry dir="ltr">2</entry>
      </row>
      <row>
-      <entry dir="ltr">MinSize</entry>
+      <entry dir="ltr"><codeph>MinSize</codeph></entry>
       <entry dir="ltr">The minimum or starting number of TCP
        connections to use</entry>
       <entry dir="ltr">1</entry>
      </row>
      <row>
-      <entry dir="ltr">WaitTimeout</entry>
-      <entry dir="ltr">The amount of time to wait for a TCP connection
-       before timing out once the MaxSize has been reached and all
-       connections are being used</entry>
-      <entry dir="ltr">2500ms</entry>
+      <entry dir="ltr"><codeph>WaitTimeout</codeph></entry>
+      <entry dir="ltr">The amount of time to wait for a TCP connection before timing out after the
+									<codeph>MaxSize</codeph> has been reached and all connections are being
+								used</entry>
+      <entry dir="ltr">2500 ms</entry>
      </row>
      <row>
-      <entry dir="ltr">ShutdownTimeout</entry>
-      <entry dir="ltr">The amount of time to wait for the before the
-       underlying socket closes its connection</entry>
-      <entry dir="ltr">10000ms</entry>
+      <entry dir="ltr"><codeph>ShutdownTimeout</codeph></entry>
+      <entry dir="ltr">The amount of time to wait  before the underlying socket closes its
+								connection</entry>
+      <entry dir="ltr">10000 ms</entry>
      </row>
      <row>
-      <entry dir="ltr">UseSsl</entry>
+      <entry dir="ltr"><codeph>UseSsl</codeph></entry>
       <entry dir="ltr">Whether or not to use SSL encrypt data being
        sent to and from the server</entry>
       <entry dir="ltr">false</entry>
@@ -261,13 +270,15 @@ using (var cluster = new CouchbaseCluster(config))
     </tbody>
    </tgroup>
   </table>
-  <p>The example source can be found on Github <xref
-   href="https://github.com/couchbaselabs/couchbase-net-examples/blob/master/Src/Couchbase.ClientConfigurationExample/Program.cs"
-   format="html" scope="external">here</xref>.</p>
+  <p>The example source can be found on GitHub <xref
+					href="https://github.com/couchbaselabs/couchbase-net-examples/blob/master/Src/Couchbase.ClientConfigurationExample/Program.cs"
+					format="html" scope="external">here</xref>.</p>
   </section> 
   <section>
    <title>Configuration with an App.Config or Web.Config</title>
-   <p>As an alternative to using programmatic configuration, the client can also be configured through an App.config or Web.config. The following snippet illustrates how you would do so:</p>
+   <p>As an alternative to using programmatic configuration, you can also configure the client
+				through an App.config or Web.config. The following snippet illustrates how you would do
+				so:</p>
    <codeblock outputclass="language-xml">
 &lt;?xml version="1.0" encoding="utf-8" ?&gt;
 &lt;configuration&gt;
@@ -297,8 +308,11 @@ using (var cluster = new CouchbaseCluster(config))
     &lt;/startup&gt;
 &lt;/configuration&gt;
 		</codeblock>
-   <p>Note this the same configuration programmatically defined earlier in this section using the ClientConfiguration class.</p>
-   <p>To use this configuration, you need to use one of the special CouchbaseCluster constructors which takes a string which is the path of the configuration:</p>
+   <p>This the same configuration programmatically defined earlier in this section using the
+					<codeph>ClientConfiguration</codeph> class.</p>
+   <p>To use this configuration, you need to use one of the special
+					<codeph>CouchbaseCluster</codeph> constructors that takes a string containing the
+				path of the configuration:</p>
    <p>
     <codeblock outputclass="language-csharp">
 using (var cluster = new CouchbaseCluster("couchbaseClients/couchbase"))
@@ -310,12 +324,12 @@ using (var cluster = new CouchbaseCluster("couchbaseClients/couchbase"))
 }
 			</codeblock>
    </p>
-   <p>Note that the string “couchbaseClients/couchbase” matches the path of the sectionGroup and
-    section elements in the App.config defined above. This example can be found on
-    Github <xref
-     href="https://github.com/couchbaselabs/couchbase-net-examples/tree/master/Src/Couchbase.ClientConfigurationExample.WebConfig"
-     format="html" scope="external">here.</xref>
-   </p>
+   <p>That the string <codeph>couchbaseClients/couchbase</codeph> matches the path of the
+					<codeph>sectionGroup</codeph> and <codeph>section</codeph> elements in the App.config
+				defined above. This example can be found on Github <xref
+					href="https://github.com/couchbaselabs/couchbase-net-examples/tree/master/Src/Couchbase.ClientConfigurationExample.WebConfig"
+					format="html" scope="external">here.</xref>
+			</p>
   </section>
  </conbody>
 </concept>

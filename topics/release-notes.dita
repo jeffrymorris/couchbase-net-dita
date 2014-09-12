@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="concept_pfn_khq_44">
-	<title>Release Notes</title>
+	<title>Release notes</title>
 	<shortdesc>Release notes for the Couchbase .NET SDK</shortdesc>
 	<conbody>
 		<p>TBD</p>
