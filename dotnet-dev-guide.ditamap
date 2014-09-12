@@ -13,7 +13,7 @@
 		<topicref href="topics/hello-couchbase.dita" />
 	</topicref>
   <topicref href="topics/tutorial-intro.dita">
-    <topicref href="topics/topic.dita"/>
+    <topicref href="topics/beer-sample-prereqs.dita"/>
   </topicref>
   <topicref href="topics/managing-connections.dita">
     <topicref href="topics/configuring-the-client.dita"/>
