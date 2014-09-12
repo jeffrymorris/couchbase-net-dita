@@ -2,12 +2,16 @@
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="concept_cn2_5ck_r4">
  <title>Licensing</title>
- <shortdesc>The Couchbase .NET SDK 2.0 is licensed under the Apache License, version 2.0. </shortdesc>
+ <shortdesc>Software and documentation licenses apply to this product.</shortdesc>
  <conbody>
-  <section>The
-   details of the license can be found at this link: <xref
-    href="http://www.apache.org/licenses/LICENSE-2.0" format="html" scope="external"
-    >http://www.apache.org/licenses/LICENSE-2.0</xref><title>Documentation license</title><p>This documentation in any
+ 	<section>
+			<title>Software license</title>
+			<p>The Couchbase .NET SDK 2.0 is licensed under the <xref
+					href="http://www.apache.org/licenses/LICENSE-2.0" format="html" scope="external"
+					>Apache License, version 2.0</xref>.</p>
+		</section>
+  <section>
+  	<title>Documentation license</title><p>This documentation in any
     form, software or printed matter, contains proprietary information that is the exclusive
     property of Couchbase. Your access to and use of this material is subject to the terms and
     conditions of your Couchbase Software License and Service Agreement, which has been executed and

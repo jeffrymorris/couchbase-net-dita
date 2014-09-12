@@ -3,7 +3,7 @@
 <concept xml:lang="en-us" id="concept227">
 	<title>Getting Started</title>
 	<conbody>
-		<p>In the following section you will learn how to add the Couchbase .NET SDK to your
+		<p>This section shows how to add the Couchbase .NET SDK to your
 			application and how to get up and running with the client by way of a simple “Hello
 			Couchbase” application.</p>
 	</conbody>

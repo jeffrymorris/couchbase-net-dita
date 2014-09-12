@@ -2,15 +2,24 @@
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept xml:lang="en-us" id="concept_z3r_zgq_44">
 	<title>SDK Overview</title>
-	<shortdesc> The Couchbase .NET SDK 2.0 is the official driver for Couchbase Server. Written
-		entirely in the C# programming language, it targets .NET Framework 4.5 and greater and
-		Couchbase Server 2.5 and greater</shortdesc>
+	<shortdesc> The Couchbase .NET SDK 2.0 is the official .NET client library for Couchbase Server.
+		Written entirely in the C# programming language, it targets .NET Framework 4.5 and later and
+		Couchbase Server 2.5 and later.</shortdesc>
 	<conbody>
 		<p>This is the documentation for the SDK and it groups features into sections. Within each feature
 			section, you will find concepts or tasks references to additional information or topics,
-			and other topics which are identified as relating to the feature in discussion.
+			and other topics that are identified as relating to the feature in discussion.
 		</p>	
-		<p>Until the SDK reaches General Availability, expect the documentation to change with respect to structure and content.</p>
-		<p>Being a work in progress, feedback is greatly appreciated. Please send your comments, requests, suggestions to <xref href="jeffry.morris@couchbase.com" format="html" scope="external">jeffry.morris@couchbase.com</xref>.</p>
+		<p>Until the SDK reaches general availability (GA), expect the content and structure of the
+			documentation to change. Being a work in progress, we greatly appreciate your feedback.
+			Please send your comments, requests, and suggestions to <xref
+				href="jeffry.morris@couchbase.com" format="html" scope="external"
+				>jeffry.morris@couchbase.com</xref>.</p>
+		<section>
+			<title>Contributing</title>
+			<p>We welcome community contributions to the .NET SDK. The .<xref
+					href="https://github.com/couchbase/couchbase-net-client" format="html"
+					scope="external">NET SDK source code</xref> is available on GitHub.</p>
+		</section>
 	</conbody>
 </concept>

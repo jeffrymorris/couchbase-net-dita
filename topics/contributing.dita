@@ -25,7 +25,7 @@
 		</section>
 		<section>
 			<title>Contributor Agreement License</title>
-			<p>All pull requests must go through a review process before being merged into their respective branches on Github. A prerequisite for accepting a pull request is that the contributor has read and signed the Couchbase Contributor License Agreement or CAL. This can be done through Gerrit, our code review system.</p>
+			<p>All pull requests must go through a review process before being merged into their respective branches on Github. A prerequisite for accepting a pull request is that the contributor has read and signed the Couchbase Contributor License Agreement (CLA). This can be done through Gerrit, our code review system.</p>
 			<p>Gerrit is the official code review system for the Couchbase SDK’s. Community members who wish to contribute, must create a Gerrit account and as previously stated, sign the CLA. The steps for doing this are as follows:
 			</p>
 			<p>

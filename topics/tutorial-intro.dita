@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept xml:lang="en-us" id="concept716">
-	<title>The Beer-Sample Tutorial Sample Application</title>
+	<title>.NET tutorial</title>
 	<conbody>
-		<p>The “Hello Couchbase” tutorial was a quick 5-minute introduction to the Couchbase .NET SDK. It doesn’t go over advanced features of the client, nor does it show any of the best practices that have emerged for developing highly scalable, robust Internet applications with Couchbase. The Beer Tutorial Sample Application is intended to take over over where the “Hello Couchbase” ends and provide a comprehensive application blueprint for developing Couchbase applications using the Microsoft .NET Framework.</p>
+		<p>The beer sample application takes over where the <xref href="hello-couchbase.dita" format="dita">Hello Couchbase tutorial</xref> ends and provides a comprehensive application blueprint for developing Couchbase applications using the Microsoft .NET Framework. The sample application demonstrates the best practices that have emerged for developing highly scalable, robust Internet applications with Couchbase.</p>
 	</conbody>
 </concept>
