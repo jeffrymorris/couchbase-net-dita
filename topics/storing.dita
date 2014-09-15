@@ -22,23 +22,23 @@
             <tbody>
             
             <row>
-              <entry>Id</entry>
+              <entry><codeph>Id</codeph></entry>
               <entry>string</entry>
               <entry>The unique identifier for the document</entry>
             </row>
             <row>
-              <entry>Cas</entry>
+              <entry><codeph>Cas</codeph></entry>
               <entry>ulong</entry>
-              <entry>The “Check and Set” value for enforcing optimistic concurrency</entry>
+              <entry>The check and set (CAS) value for enforcing optimistic concurrency</entry>
             </row>
             <row>
-              <entry>Expiry</entry>
+              <entry><codeph>Expiry</codeph></entry>
               <entry>uint</entry>
               <entry>The time-to-live (TTL) of the document in milliseconds. A value of zero or less
                 for infinite lifetime.</entry>
             </row>
             <row>
-              <entry>Value</entry>
+              <entry><codeph>Value</codeph></entry>
               <entry>Generic T</entry>
               <entry>The actual document value to store. This can be a scalar value, an object, or a
                 dynamic type.</entry>
@@ -66,8 +66,9 @@
       Console.WriteLine("Inserted document '{0}'", document.Id);
   }
    </codeblock>
-   <p>In this example, we are using the <apiname>Insert()</apiname> method, which creates a document if it doesn’t exist, failing if it does. Besides the <apiname>Upsert()</apiname> method there are two other methods for inserting documents. The following table shows the methods that are available for storing documents in Couchbase:
-   </p>
+   <p>This example uses the <apiname>Insert()</apiname> method, which creates a document if it
+			doesn’t exist, failing if it does.  The following table shows the methods that are
+			available for storing documents in Couchbase: </p>
    <p>
         <table id="table_dgx_4jd_3p">
           <tgroup cols="2">
@@ -97,6 +98,7 @@
         </tgroup>
         </table>
       </p>
-   <p>If the CAS (Check and Set) or Expires value is set, they will be honored for each operation.</p>
+   <p>If the <codeph>Cas</codeph> or <codeph>Expires</codeph> value is set, they will be honored for
+			each operation.</p>
  </conbody>
 </concept>

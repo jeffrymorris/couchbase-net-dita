@@ -2,12 +2,14 @@
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="concept_yny_mhq_44">
 	<title>Retrieving documents</title>
-	<shortdesc>Documents are retrieved by unique identifier (key). There are two ways of retrieving documents: consistent reads using the primary and inconsistent reads using replicas.</shortdesc>
+	<shortdesc>Documents are retrieved by unique identifier (key). You can retrieve documents in these
+		ways: consistent reads using the primary and inconsistent reads using replicas.</shortdesc>
 	<conbody>
 		
 		<section>
 			<title>Regular reads </title>
-			<p>In most cases you will want to use regular reads for accessing your documents in Couchbase Server. In this case the client will reading from the primary cluster node.</p>
+			<p>In most cases you can use regular reads for accessing your documents in Couchbase Server. In
+				this case the client  reads from the primary cluster node.</p>
 			<p>There are two methods defined (with many overloads) for reading documents, the first one takes
 				the unique identifier of the document and returns an IOperationResult&lt;T&gt;
 				object and the other takes the unique identifier and returns an
@@ -21,11 +23,16 @@
   }
 			</codeblock>
 			
-			<p>The two perform essentially the same purpose; they retrieve a document from Couchbase by Id and cast the value to specified Type T. The IDocumentResult&lt;T&gt; and IOperationResult&lt;T&gt; interfaces are nearly symmetric and offer properties for checking whether or not the operation completed successfully (Success) and if the operation failed the server’s response status (Status) and an optional message with reason why.</p>
+			<p>The two perform essentially the same purpose; they retrieve a document from Couchbase by ID
+				and cast the value to specified Type T. The <codeph>IDocumentResult&lt;T&gt;
+				</codeph>and <codeph>IOperationResult&lt;T&gt;</codeph> interfaces are nearly symmetric
+				and offer properties for checking whether or not the operation completed successfully
+					(<codeph>Success</codeph>) and if the operation failed the server’s response status
+					(<codeph>Status</codeph>) and an optional message with reason why.</p>
 		
-			<p>Here is a table describing the IDocumentResult&lt;T&gt; interface:</p>
+			<p>Here is a table that describes the <codeph>IDocumentResult&lt;T&gt;</codeph> interface:</p>
 			<p><table frame="all" rowsep="1" colsep="1" id="table_gzw_jld_3p">
-					<title>IDocumentResult&lt;T> Properties</title>
+					<title>IDocumentResult&lt;T> properties</title>
 						<tgroup cols="3">
 						<colspec colnum="1" colname="col1" colwidth="1*"/>
 						<colspec colnum="2" colname="col2" colwidth="1.66*"/>
@@ -39,24 +46,24 @@
 						</thead>
 						<tbody>
 							<row>
-								<entry>Status</entry>
+								<entry><codeph>Status</codeph></entry>
 								<entry>ResponseStatus*</entry>
 								<entry>The memcached response status from the server</entry>
 							</row>
 							<row>
-								<entry>Value</entry>
+								<entry><codeph>Value</codeph></entry>
 								<entry>IDocument&lt;T&gt;</entry>
 								<entry>A type constrained representing a JSON document</entry>
 							</row>
 							<row>
-								<entry>Message</entry>
+								<entry><codeph>Message</codeph></entry>
 								<entry>string</entry>
 								<entry>The message returned by the server or the client if the
 									request could not be satisfied</entry>
 							</row>
 							<row>
-								<entry>Success</entry>
-								<entry>boolean</entry>
+								<entry><codeph>Success</codeph></entry>
+								<entry>Boolean</entry>
 								<entry>True if the request was successful</entry>
 							</row>
 						</tbody>
@@ -68,8 +75,9 @@
 		
 		<section>
 			<title>Replica reads</title>
-			<p>In certain cases when availability is favored over consistency, replica reads may be used. A replica read will return data from the non-authoritative location - e.g. a node other than it’s master.
-			</p>
+			<p>In certain cases when availability is favored over consistency, replica reads can be used. A
+				replica read returns data from the non-authoritative location (a node other than its
+				master). </p>
 			
 		</section>
 

@@ -2,7 +2,7 @@
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="concept_onf_nhq_44">
  <title>Deleting documents</title>
-  <shortdesc>Documents are deleted by unique-identifier (Id) or by passing in the document to be deleted into the <apiname>IBucket.Remove(..)</apiname> method</shortdesc>
+  <shortdesc>Documents are deleted by unique-identifier (<codeph>Id</codeph>) or by passing the document to be deleted into the <apiname>IBucket.Remove(..)</apiname> method</shortdesc>
  <conbody>
   <codeblock outputclass="language-csharp">
  var result = bucket.Remove(document);
@@ -11,6 +11,6 @@
     Console.WriteLine("Deleted document '{0}'", document.Id);
  }
   </codeblock>
-   <p>As always the Success property will return true if the deletion was successful.</p>
+   <p>As always, the <codeph>Success</codeph> property returns true if the deletion was successful.</p>
  </conbody>
 </concept>

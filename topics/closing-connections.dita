@@ -2,19 +2,21 @@
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="concept_c5w_ppk_3p">
  <title>Closing the Connection</title>
- <shortdesc>Both CouchbaseCluster and CouchbaseCluster objects implement the IDisposable pattern and also have finalizers. That being said, managing the lifetime of these objects is critical for developing robust, high performance applications. In a typical application, you would create a single, static CouchbaseCluster object that would live the duration of the application or process’s lifetime - create the CouchbaseCluster object when the application starts and call it’s Dispose method when the application shuts down. Depending upon finalization is not suggested, but admissible in certain applications.</shortdesc>
+ <shortdesc>Both <codeph>CouchbaseCluster</codeph> and <codeph>CouchbaseCluster</codeph> objects implement the IDisposable pattern and also have finalizers. That being said, managing the lifetime of these objects is critical for developing robust, high performance applications. In a typical application, you would create a single, static CouchbaseCluster object that would live the duration of the application or process’s lifetime - create the CouchbaseCluster object when the application starts and call it’s Dispose method when the application shuts down. Depending upon finalization is not suggested, but admissible in certain applications.</shortdesc>
  <conbody>
   <section>
-   <p>There are three ways to close a bucket and release the internal connections:
-   </p>
-   <ol>
-    <li>Through Finalization and Garbage Collection (GC)</li>
-    <li>Calling Dispose explicitly or implicitly via the using statement</li>
-    <li>By calling CouchbaseCluster.CloseBucket() and passing the bucket reference</li>
-   </ol>
-   <p>
-    The first way is the least dependable method and relies on a certain amount of non-determinism as you are relying on the CLR’s finalization mechanism; just let the object go out of scope. The second and third are the preferred methods in that you deterministically control the object's lifetime. Here is an example of using the third method:
-   </p>
+   <p>You can close a bucket and release the internal connections by using one of the following
+				methods: </p>
+   <ul>
+    <li>Through finalization and garbage collection (GC)</li>
+    <li>Calling <codeph>Dispose</codeph> explicitly or implicitly via the <codeph>using</codeph> statement</li>
+    <li>By calling <codeph>CouchbaseCluster.CloseBucket()</codeph> and passing the bucket reference</li>
+   </ul>
+   <p> Using finalization and garbage collection is the least dependable method and relies on a
+				certain amount of nondeterminism because you are relying on the common language runtime
+				(CLR) finalization mechanism; just let the object go out of scope. The other methods are
+				preferred because you deterministically control the object's lifetime. Here is an
+				example that uses the <codeph>CouchbaseCluster.CloseBucket()</codeph> method: </p>
    <codeblock outputclass="language-csharp">
   using (var cluster = new CouchbaseCluster(config))
   {
@@ -33,7 +35,12 @@
       }
   }
 		</codeblock>
-   <note>It’s important to note that the references to the <apiname>CouchbaseBucket</apiname> (or <apiname>MemcachedBucket</apiname>) are ref-counted; multiple threads maybe using the same object. If multiple threads are using the bucket and each calls either <apiname>CouchbaseCluster.CloseBucket()</apiname> or <apiname>Dispose()</apiname> (either implicitly through the using statement explicitly), the instance will not be disposed until the ref-count reaches zero.</note>
+   <note>It’s important to know that the references to the <apiname>CouchbaseBucket</apiname> (or
+					<apiname>MemcachedBucket</apiname>) are reference counted because multiple threads
+				might be using the same object. If multiple threads are using the bucket and each calls
+				either <apiname>CouchbaseCluster.CloseBucket()</apiname> or <apiname>Dispose()</apiname>
+				(either implicitly through the <codeph>using</codeph> statement explicitly), the
+				instance will not be disposed until the reference count reaches zero.</note>
   </section>
  </conbody>
 </concept>

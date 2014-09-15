@@ -14,7 +14,7 @@
 			</p>
 			<p>
 				<ul>
-					<li>Microsoft Visual Studio 2012 or later</li>
+					<li>Microsoft Visual Studio 2013 or later</li>
 					<li>Microsoft .NET Framework 4.5 or later</li>
 					<li>Couchbase Server 2.5 or later installed locally (localhost/127.0.0.1)</li>
 					<li>A Couchbase bucket called <codeph>default</codeph> installed</li>

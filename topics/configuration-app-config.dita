@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN" "concept.dtd">
 <concept id="concept_icx_l4k_3p">
- <title>Connecting to Buckets</title>
- <shortdesc>Once you have created a ClientConfiguration, you will then connect to a cluster using
-  the CouchbaseCluster class. This is done by creating a CouchbaseCluster object and passing the
-  ClientConfiguration as a parameter. </shortdesc>
+ <title>Connecting to buckets</title>
+ <shortdesc>After you create a <codeph>ClientConfiguration</codeph>, you can then connect to a
+		cluster by using the <codeph>CouchbaseCluster</codeph> class.  </shortdesc>
  <conbody>
-   <p/>
+ 	<p>To connect to a bucket, create a 
+ 		<codeph>CouchbaseCluster</codeph> object and pass the <codeph>ClientConfiguration</codeph> object as a parameter.</p>
    <p>
     <codeblock outputclass="language-csharp">
   var config = new ClientConfiguration
@@ -26,7 +26,9 @@
   }  
 			</codeblock>
    </p>
-   <p>Note that the default constructor will internally allocate a ClientConnection internally with the default settings, in other words, creating a ClientConfiguration object is only required when you wish to override the default settings.</p>
+   <p>The default constructor allocates a <codeph>ClientConnection</codeph> internally with the
+			default settings, in other words, creating a <codeph>ClientConfiguration</codeph> object is
+			required only when you want to override the default settings.</p>
    <p>Now that we have CouchbaseCluster, we can connect to a bucket by calling the CouchbaseCluster.OpenBucket() method. The default OpenBucket() method will connect to the default bucket, if you wish to open another bucket, you can use one of the overloads which take a bucket name and password to connect to another bucket. It’s important to note, that you do not need to provide a bucket configuration to open another bucket; if one doesn’t exist, the client will clone one from the default configuration.</p>
    <codeblock outputclass="language-csharp">
   using (var cluster = new CouchbaseCluster(config))
@@ -37,7 +39,9 @@
       }
   }
 		</codeblock>
-   <p>When you call OpenBucket(), internally the client is using the configuration provided to establish the connection between the client and the server. The references are maintained by the CouchbaseCluster object; it’s the root object and should be long-lived and reused within your application.
-   </p>
+   <p>When you call <codeph>OpenBucket()</codeph>, internally the client is using the configuration
+			provided to establish the connection between the client and the server. The references are
+			maintained by the <codeph>CouchbaseCluster</codeph> object; it’s the root object and should
+			be long-lived and reused within your application. </p>
  </conbody>
 </concept>
